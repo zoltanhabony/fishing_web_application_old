@@ -15,6 +15,8 @@ import { useForm } from "react-hook-form";
 import GoogleSingInButton from "../GoogleSignInButton";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { Icons } from "../ui/icon";
 import { error } from "console";
 
 const formSchema = z.object({
@@ -36,6 +38,8 @@ const formSchema = z.object({
 
 const SignUpForm = () => {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [signInError, setSignInError] = useState<boolean>(false)
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -51,16 +55,20 @@ const SignUpForm = () => {
       password: values.password,
       redirect: false,
     });
+    setIsLoading(true)
 
     if (data?.error) {
-      console.log(data.error);
+      setIsLoading(false)
+      setSignInError(true)
     } else {
+      setIsLoading(false)
+      setSignInError(false)
       router.push("/dashboard");
     }
   };
 
   return (
-    <Form {...form}>
+       <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
@@ -69,7 +77,7 @@ const SignUpForm = () => {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="jhondoe@gmail.com" {...field} />
+                <Input disabled={isLoading} placeholder="jhondoe@gmail.com" {...field} />
               </FormControl>
 
               <FormMessage />
@@ -84,34 +92,25 @@ const SignUpForm = () => {
             <FormItem>
               <FormLabel>Jelszó</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="s3cr€t" {...field} />
+                <Input disabled={isLoading} type="password" placeholder="s3cr€t" {...field} />
               </FormControl>
 
               <FormMessage />
             </FormItem>
           )}
         />
-
+        {signInError ? <p className="text-sm text-destructive">Hibás felhasználónév vagy jelszó</p>: ""}
         <div className="flex flex-col justify-center items-center">
-          <Button className="mb-5" type="submit">
+          <Button disabled={isLoading} className="mb-5 w-full bg-sky-700" type="submit">
+          {isLoading && (
+              <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+            )}
             Belépés
           </Button>
         </div>
       </form>
-      <div className="relative mb-5">
-        <div className="absolute inset-0 flex items-center ">
-          <span className="w-full border-t border-zinc-600"/>
-        </div>
-        <div className="relative flex justify-center text-xs uppercase">
-          <span className=" px-2 text-muted-foreground bg-violet-200">
-            Or continue with
-          </span>
-        </div>
-      </div>
-      <div className="flex flex-col justify-center items-center">
-        <GoogleSingInButton>Belépés Google fiókkal</GoogleSingInButton>
-      </div>
     </Form>
+
   );
 };
 

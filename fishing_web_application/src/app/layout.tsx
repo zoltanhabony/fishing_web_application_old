@@ -38,7 +38,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Provider>
-            <main className="h-screen flex flex-col justify-center items-center">
+            <main>
               {children}
             </main>
           </Provider>
