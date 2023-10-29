@@ -11,14 +11,6 @@ const userSchema = z.object({
   email: z.string().min(1, {message:"Email is required"}).email({
     message: "Invalid email",
   }),
-  firstName: z.string().min(3, {
-    message: "Username must be at least 3 characters.",
-  }),
-  
-  lastName: z.string().min(3, {
-    message: "Username must be at least 3 characters.",
-  }),
-
   password : z
   .string()
   .regex(new RegExp(".*[A-Z].*"), "One uppercase character")
@@ -34,7 +26,7 @@ const userSchema = z.object({
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { email, userName, password, firstName, lastName } = userSchema.parse(body);
+    const { email, userName, password} = userSchema.parse(body);
 
     //Existing email
     const existingUserByEmail = await db.user.findUnique({
@@ -66,8 +58,8 @@ export async function POST(req: Request) {
         userName,
         email,
         hashedPassword,
-        firstName,
-        lastName,
+        firstName:null,
+        lastName:null
       },
     });
     return NextResponse.json(
@@ -75,8 +67,9 @@ export async function POST(req: Request) {
       { status: 201 }
     );
   } catch (error) {
+    console.log(error)
     return NextResponse.json(
-      { message: "Something went wrong" },
+      { message: error },
       { status: 500 }
     );
   }
