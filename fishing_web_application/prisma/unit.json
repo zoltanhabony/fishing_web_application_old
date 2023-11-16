@@ -1,0 +1,19 @@
+[
+    {
+        "unitType" : "MASS",
+        "unitName" : "kilogram",
+        "unitAcronyms" : "kg"
+    },
+
+    {
+        "unitType" : "LENGTH",
+        "unitName" : "centiméter",
+        "unitAcronyms" : "cm"
+    },
+
+    {
+        "unitType" : "TEMPERATURE",
+        "unitName" : "celsius",
+        "unitAcronyms" : "C°"
+    }
+]

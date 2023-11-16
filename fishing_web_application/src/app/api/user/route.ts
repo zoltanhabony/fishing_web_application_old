@@ -3,6 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 import db from "@/lib/db";
 import { hash } from "bcrypt";
 import { z } from "zod";
+import { getServerSession } from "next-auth";
+import { options } from "../auth/[...nextauth]/options";
 
 const userSchema = z.object({
   userName: z.string().min(3, {
@@ -53,15 +55,27 @@ export async function POST(req: Request) {
     }
 
     const hashedPassword = await hash(password, 10);
+
+    const newAccessRight = await db.accessRight.create({
+      data:{
+        haveAccessToPost: true,   
+        haveAccessToTournament: true,
+        haveAccessToFishing: false, 
+      }
+    });
+
     const newUser = await db.user.create({
       data: {
         userName,
         email,
         hashedPassword,
         firstName:null,
-        lastName:null
+        lastName:null,
+        birthDay: null,
+        accessRightId: newAccessRight.accessRightId,
       },
     });
+
     return NextResponse.json(
       { user: newUser, message: "User created successfuly" },
       { status: 201 }
@@ -74,3 +88,54 @@ export async function POST(req: Request) {
     );
   }
 }
+
+type user = {
+  userId:string
+  userName: string,
+}
+
+export async function GET(request: NextRequest) {
+  const session = await getServerSession(options)
+  if (session) {
+      if (session.user.role === "ADMIN" || session.user.role === "USER") {
+
+          let user: user[] = [{
+            userId: "",
+              userName: "",
+          }]
+
+         const userName =  request.nextUrl.searchParams.get("userName")
+
+         const users = await db.user.findMany({
+          where:{
+            userName: {
+              startsWith: userName!
+            }
+          },select:{
+            id: true,
+            userName:true,
+          }
+         })
+
+         return NextResponse.json(
+          { users: users },
+          { status: 200 }
+      )
+         
+
+      } else {
+          return NextResponse.json(
+              { message: "Nincs jogosultsága a horgászat megkezdéséhez" },
+              { status: 403 }
+          )
+      }
+
+
+  } else {
+      return NextResponse.json(
+          { authority: null, message: "A létrehozás sikertelen: Nincs érvényes munkamenet!" },
+          { status: 401 }
+      )
+  }
+}
+    

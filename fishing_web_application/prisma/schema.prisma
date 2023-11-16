@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -15,14 +12,246 @@ enum UserRole {
   ADMIN
 }
 
+enum MarkerType {
+  DEFAULT
+  FISING_SPOTS
+  FIRE_EMERGENCY
+  ENVIRONMENTAL_POLLUTION
+  FISHING_AUTHORITY
+  CATERING_FACILITIES
+}
+
+enum WaterAreaType {
+  RIVER_WATER
+  STILL_WATER
+}
+
+enum UnitType {
+  MASS
+  LENGTH
+  TEMPERATURE
+}
+
 model User {
-  userId        String  @id @default(cuid())
-  firstName String?
-  lastName  String?
-  userName String @unique
-  email     String @unique
+  id             String      @id @default(cuid())
+  firstName      String?
+  lastName       String?
+  userName       String      @unique
+  email          String      @unique
   hashedPassword String
-  role UserRole @default(USER)
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  role           UserRole    @default(USER)
+  birthDay       DateTime?
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  imageSrc       String?
+  accessRightId  String      @unique
+  accessRight    AccessRight @relation(fields: [accessRightId], references: [accessRightId])
+  Account        Account[]
+  Session        Session[]
+  LogBook        LogBook?
+  IsFishing      IsFishing[]
+
+  Participant Participant[]
+  Post        Post[]
+}
+
+model Account {
+  id                 String    @id @default(cuid())
+  userId             String
+  providerType       String
+  providerId         String
+  providerAccountId  String
+  refreshToken       String?
+  accessToken        String?
+  accessTokenExpires DateTime?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  user               User      @relation(fields: [userId], references: [id])
+
+  @@unique([providerId, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  userId       String
+  expires      DateTime
+  sessionToken String   @unique
+  accessToken  String   @unique
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model VerificationRequest {
+  id         String   @id @default(cuid())
+  identifier String
+  token      String   @unique
+  expires    DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([identifier, token])
+}
+
+model LogBook {
+  serialNumber       String           @id @default(cuid())
+  userId             String           @unique
+  fisheryAuthorityId String
+  expiresDate        DateTime
+  date               DateTime         @default(now())
+  feeId              String           @unique
+  user               User             @relation(fields: [userId], references: [id])
+  fisheryAuthority   FisheryAuthority @relation(fields: [fisheryAuthorityId], references: [fisheryAuthorityId])
+  fee                Fees             @relation(fields: [feeId], references: [feeId])
+  Catches            Catch[]
+}
+
+model FisheryAuthority {
+  fisheryAuthorityId   String @id @default(cuid())
+  fisheryAuthorityName String @unique
+  taxId                String @unique
+  cityId               String
+  streetName           String
+  streetNumber         Int
+  floor                Int?
+  door                 Int?
+
+  LogBook LogBook[]
+  city    City      @relation(fields: [cityId], references: [cityId])
+}
+
+model City {
+  cityId     String @id @default(cuid())
+  postalCode Int
+  cityName   String
+  countyName String
+
+  FisheryAuthority FisheryAuthority[]
+}
+
+model IsFishing {
+  userId String
+  date   DateTime @db.Date
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@unique([userId, date])
+}
+
+model Catch {
+  catchId         String    @id @default(cuid())
+  logBookId       String
+  waterAreaId     String
+  fishId          String
+  createdAt       DateTime  @default(now())
+  weight          Decimal
+  weightUnit      String?
+  length          Decimal?
+  lengthUnit      String?
+  isInjured       Boolean?
+  method          String?
+  fishingBait     String?
+  temperature     Int?
+  temperatureUnit String?
+  isStored        Boolean   @default(false)
+  logBook         LogBook   @relation(fields: [logBookId], references: [serialNumber])
+  waterArea       WaterArea @relation(fields: [waterAreaId], references: [waterAreaId])
+  fish            Fish      @relation(fields: [fishId], references: [fishId])
+}
+
+model Currency {
+  currencyId       String @id @default(cuid())
+  currencyName     String @unique
+  currencyAcronyms String
+  Fee              Fees[]
+}
+
+model Unit {
+  unitTypeId   String   @id @default(cuid())
+  unitType     UnitType
+  unitName     String
+  unitAcronyms String
+}
+
+model Participant {
+  tournamentId String
+  userId       String
+  ranking      Int
+
+  user       User       @relation(fields: [userId], references: [id])
+  tournament Tournament @relation(fields: [tournamentId], references: [tournamentId])
+
+  @@unique([tournamentId, userId])
+}
+
+model Tournament {
+  tournamentId          String        @id @default(cuid())
+  tournamentName        String
+  tournamentDescription String
+  deadline              DateTime
+  startDate             DateTime
+  isFinished            Boolean       @default(false)
+  maxParticipants       Int
+  tournamentType        String?
+  fishType              String?
+  Participant           Participant[]
+}
+
+model Map {
+  markerId    String     @id @default(cuid())
+  latitude    Decimal
+  longitude   Decimal
+  markerType  MarkerType @default(DEFAULT)
+  description String
+  userId      String
+}
+
+model Post {
+  postId      String   @id @default(cuid())
+  userId      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  title       String
+  description String
+
+  user User? @relation(fields: [userId], references: [id])
+}
+
+model WaterArea {
+  waterAreaId   String        @id @default(cuid())
+  waterAreaCode String        @unique
+  waterAreaName String
+  waterAreaType WaterAreaType
+  Catches       Catch[]
+}
+
+model AccessRight {
+  accessRightId          String  @id @default(cuid())
+  haveAccessToPost       Boolean @default(true)
+  haveAccessToTournament Boolean @default(true)
+  haveAccessToFishing    Boolean @default(true)
+  User                   User?
+}
+
+model Fish {
+  fishId         String   @id @default(cuid())
+  fishCode       Int?     @unique
+  fishName       String
+  weightLimit    Int?
+  lengthLimit    Decimal?
+  pieceLimit     Int?
+  banPeriodStart String?
+  banPeriodEnd   String?
+  fishImageUrl   String?
+  Catches        Catch[]
+}
+
+model Fees {
+  feeId      String   @id @default(cuid())
+  baseFee    Int
+  eszh       Int?
+  currencyId String
+  currency   Currency @relation(fields: [currencyId], references: [currencyId])
+  LogBook    LogBook?
 }
