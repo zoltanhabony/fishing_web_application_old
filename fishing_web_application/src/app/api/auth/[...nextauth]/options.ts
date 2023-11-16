@@ -42,7 +42,7 @@ export const options: NextAuthOptions = {
         const accessToken = getJWTAccessToken(existingUserWithoutPass)
 
         return{
-          id:`${existingUser.userId}`,
+          id:`${existingUser.id}`,
           userName: existingUser.userName,
           email: existingUser.email,
           role: existingUser.role,

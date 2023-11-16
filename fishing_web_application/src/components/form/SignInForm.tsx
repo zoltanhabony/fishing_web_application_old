@@ -26,7 +26,6 @@ const formSchema = z.object({
 
   password: z
     .string()
-    .regex(new RegExp(".*[A-Z].*"), "One uppercase character")
     .regex(new RegExp(".*[a-z].*"), "One lowercase character")
     .regex(new RegExp(".*\\d.*"), "One number")
     .regex(
@@ -36,13 +35,12 @@ const formSchema = z.object({
     .min(8, "Must be at least 8 characters in length"),
 });
 
-const SignUpForm = () => {
+const SignInForm = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [signInError, setSignInError] = useState<boolean>(false)
 
   const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
       password: "",
@@ -50,12 +48,12 @@ const SignUpForm = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    setIsLoading(true)
     const data = await signIn("credentials", {
       email: values.email,
       password: values.password,
       redirect: false,
     });
-    setIsLoading(true)
 
     if (data?.error) {
       setIsLoading(false)
@@ -114,4 +112,4 @@ const SignUpForm = () => {
   );
 };
 
-export default SignUpForm;
+export default SignInForm;

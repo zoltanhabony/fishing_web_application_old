@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "Fish" ADD COLUMN     "fishImageUrl" TEXT,
+ALTER COLUMN "banPeriodEnd" SET DATA TYPE TEXT,
+ALTER COLUMN "banPeriodStart" SET DATA TYPE TEXT;

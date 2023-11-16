@@ -1,6 +1,5 @@
 "use client";
 import { signOut, useSession } from "next-auth/react";
-import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import {
   DropdownMenu,
@@ -19,8 +18,8 @@ const User = () => {
   return (
     <div className="h-full flex items-center justify-end mr-3 z-10">
       <Avatar>
-        <AvatarImage src="https://github.com/shadcn.png" alt="user-image" />
-        <AvatarFallback>CN</AvatarFallback>
+        <AvatarImage src="" alt="user-image" />
+        {session?.user.role === "ADMIN" ? <AvatarFallback>A</AvatarFallback> : <AvatarFallback>U</AvatarFallback>}
       </Avatar>
       <p className="pl-2 pr-2 text-sm text-gray-500">
         {session?.user.userName}

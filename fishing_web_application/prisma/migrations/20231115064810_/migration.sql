@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "IsFishing" ALTER COLUMN "date" SET DATA TYPE DATE;

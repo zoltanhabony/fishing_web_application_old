@@ -1,0 +1,223 @@
+[
+  {
+    "Hal kódja": "",
+    "Hal neve": "Ponty",
+    "Súly korlátozás": "",
+    "Hossz korlátozás": "30",
+    "Mennyiség korlázotás": "3",
+    "Tilalmi időszak kezdete": "05-02",
+    "Tilalmi időszak vége": "05-31",
+    "Kép elérés út": ""
+  },
+
+  {
+    "Hal kódja": "",
+    "Hal neve": "Amur",
+    "Súly korlátozás": "",
+    "Hossz korlátozás": "",
+    "Mennyiség korlázotás": "",
+    "Tilalmi időszak kezdete": "",
+    "Tilalmi időszak vége": "",
+    "Kép elérés út": ""
+  },
+  {
+    "Hal kódja": "",
+    "Hal neve": "Márna",
+    "Súly korlátozás": "",
+    "Hossz korlátozás": "40",
+    "Mennyiség korlázotás": "3",
+    "Tilalmi időszak kezdete": "04-15",
+    "Tilalmi időszak vége": "05-31",
+    "Kép elérés út": ""
+  },
+  {
+    "Hal kódja": "",
+    "Hal neve": "Compó",
+    "Súly korlátozás": "",
+    "Hossz korlátozás": "25",
+    "Mennyiség korlázotás": "3",
+    "Tilalmi időszak kezdete": "05-02",
+    "Tilalmi időszak vége": " 06-15",
+    "Kép elérés út": ""
+  },
+  {
+    "Hal kódja": "",
+    "Hal neve": "Harcsa",
+    "Súly korlátozás": "",
+    "Hossz korlátozás": "60",
+    "Mennyiség korlázotás": "3",
+    "Tilalmi időszak kezdete": "05-02",
+    "Tilalmi időszak vége": "06-15",
+    "Kép elérés út": ""
+  },
+  {
+    "Hal kódja": "",
+    "Hal neve": "Csuka",
+    "Súly korlátozás": "",
+    "Hossz korlátozás": "40",
+    "Mennyiség korlázotás": "3",
+    "Tilalmi időszak kezdete": "02-01",
+    "Tilalmi időszak vége": "03-31",
+    "Kép elérés út": ""
+  },
+  {
+    "Hal kódja": "",
+    "Hal neve": "Süllő",
+    "Súly korlátozás": "",
+    "Hossz korlátozás": "30",
+    "Mennyiség korlázotás": "3",
+    "Tilalmi időszak kezdete": "03-01",
+    "Tilalmi időszak vége": "04-30",
+    "Kép elérés út": ""
+  },
+  {
+    "Hal kódja": "",
+    "Hal neve": "Kő-süllő",
+    "Súly korlátozás": "",
+    "Hossz korlátozás": "25",
+    "Mennyiség korlázotás": "3",
+    "Tilalmi időszak kezdete": "03-01",
+    "Tilalmi időszak vége": "06-30",
+    "Kép elérés út": ""
+  },
+  {
+    "Hal kódja": "",
+    "Hal neve": "Balin",
+    "Súly korlátozás": "",
+    "Hossz korlátozás": "40",
+    "Mennyiség korlázotás": "3",
+    "Tilalmi időszak kezdete": "03-01",
+    "Tilalmi időszak vége": "04-30",
+    "Kép elérés út": ""
+  },
+  {
+    "Hal kódja": "",
+    "Hal neve": "Keszeg-félék",
+    "Súly korlátozás": "3",
+    "Hossz korlátozás": "20",
+    "Mennyiség korlázotás": "",
+    "Tilalmi időszak kezdete": "04-15",
+    "Tilalmi időszak vége": "05-31",
+    "Kép elérés út": ""
+  },
+  {
+    "Hal kódja": "",
+    "Hal neve": "Ezüst-kárász",
+    "Súly korlátozás": "",
+    "Hossz korlátozás": "",
+    "Mennyiség korlázotás": "",
+    "Tilalmi időszak kezdete": "",
+    "Tilalmi időszak vége": "",
+    "Kép elérés út": ""
+  },
+  {
+    "Hal kódja": "",
+    "Hal neve": "Busák",
+    "Súly korlátozás": "",
+    "Hossz korlátozás": "",
+    "Mennyiség korlázotás": "",
+    "Tilalmi időszak kezdete": "",
+    "Tilalmi időszak vége": "",
+    "Kép elérés út": ""
+  },
+  {
+    "Hal kódja": "",
+    "Hal neve": "Törpe harcsa",
+    "Súly korlátozás": "",
+    "Hossz korlátozás": "",
+    "Mennyiség korlázotás": "",
+    "Tilalmi időszak kezdete": "",
+    "Tilalmi időszak vége": "",
+    "Kép elérés út": ""
+  },
+  {
+    "Hal kódja": "1",
+    "Hal neve": "Sebes pisztráng",
+    "Súly korlátozás": "",
+    "Hossz korlátozás": "22",
+    "Mennyiség korlázotás": "3",
+    "Tilalmi időszak kezdete": "10-01",
+    "Tilalmi időszak vége": "03-31",
+    "Kép elérés út": ""
+  },
+  {
+    "Hal kódja": "2",
+    "Hal neve": "Kecsege",
+    "Súly korlátozás": "",
+    "Hossz korlátozás": "50",
+    "Mennyiség korlázotás": "3",
+    "Tilalmi időszak kezdete": "01-01",
+    "Tilalmi időszak vége": "12-31",
+    "Kép elérés út": ""
+  },
+  {
+    "Hal kódja": "3",
+    "Hal neve": "Széles kárász",
+    "Súly korlátozás": "",
+    "Hossz korlátozás": "20",
+    "Mennyiség korlázotás": "3",
+    "Tilalmi időszak kezdete": "01-01",
+    "Tilalmi időszak vége": "12-31",
+    "Kép elérés út": ""
+  },
+  {
+    "Hal kódja": "4",
+    "Hal neve": "Angolna",
+    "Súly korlátozás": "",
+    "Hossz korlátozás": "",
+    "Mennyiség korlázotás": "",
+    "Tilalmi időszak kezdete": "",
+    "Tilalmi időszak vége": "",
+    "Kép elérés út": ""
+  },
+  {
+    "Hal kódja": "5",
+    "Hal neve": "Mennyhal",
+    "Súly korlátozás": "3",
+    "Hossz korlátozás": "25",
+    "Mennyiség korlázotás": "",
+    "Tilalmi időszak kezdete": "",
+    "Tilalmi időszak vége": "",
+    "Kép elérés út": ""
+  },
+  {
+    "Hal kódja": "6",
+    "Hal neve": "Sügér",
+    "Súly korlátozás": "3",
+    "Hossz korlátozás": "15",
+    "Mennyiség korlázotás": "",
+    "Tilalmi időszak kezdete": "03-01",
+    "Tilalmi időszak vége": "04-30",
+    "Kép elérés út": ""
+  },
+  {
+    "Hal kódja": "7",
+    "Hal neve": "Domolykó",
+    "Súly korlátozás": "3",
+    "Hossz korlátozás": "25",
+    "Mennyiség korlázotás": "",
+    "Tilalmi időszak kezdete": "04-15",
+    "Tilalmi időszak vége": "05-31",
+    "Kép elérés út": ""
+  },
+  {
+    "Hal kódja": "8",
+    "Hal neve": "Garda",
+    "Súly korlátozás": "3",
+    "Hossz korlátozás": "20",
+    "Mennyiség korlázotás": "",
+    "Tilalmi időszak kezdete": "04-15",
+    "Tilalmi időszak vége": "05-31",
+    "Kép elérés út": ""
+  },
+  {
+    "Hal kódja": "9",
+    "Hal neve": "",
+    "Súly korlátozás": "",
+    "Hossz korlátozás": "",
+    "Mennyiség korlázotás": "",
+    "Tilalmi időszak kezdete": "",
+    "Tilalmi időszak vége": "",
+    "Kép elérés út": ""
+  }
+]

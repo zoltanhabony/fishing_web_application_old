@@ -21,10 +21,10 @@ const MainFrame: FC<MainFrameProps> = ({ children }) => {
   return (
     <div className="h-screen w-full flex flex-col md:flex-row">
       <div className={(menuIsOpen ? 'flex' : 'hidden')+" absolute w-full h-full justify-center items-center z-10 bg-white shadow-[rgba(0,0,0.1,0.1)_3px_2px_30px_3px] "+ " md:relative md:block md:max-w-[70px] p-3" + " lg:max-w-[300px] "}>
-        <MenuLink />
+        <MenuLink mobileMenuHandler={mobileMenuHandler}/>
       </div>
       <div className="relative w-full h-full flex flex-col">
-        <div className=" bg-[#e6eefa] w-full h-[80px] flex items-center justify-between md:justify-end ">
+        <div className=" bg-white w-full h-[80px] flex items-center justify-between md:justify-end ">
           <Button onClick={mobileMenuHandler}className="block z-20 md:hidden bg-color-transparent hover:bg-color-transparent">
             {menuIsOpen?  <X className=" h-6 w-6 text-gray-500" /> : <Menu className=" h-6 w-6 text-gray-500" />}
           </Button>
