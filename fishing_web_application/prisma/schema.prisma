@@ -102,7 +102,7 @@ model LogBook {
   date               DateTime         @default(now())
   feeId              String           @unique
   user               User             @relation(fields: [userId], references: [id])
-  fisheryAuthority   FisheryAuthority @relation(fields: [fisheryAuthorityId], references: [fisheryAuthorityId])
+  fisheryAuthority   FisheryAuthority @relation(fields: [fisheryAuthorityId], references: [fisheryAuthorityId], onDelete: Cascade)
   fee                Fees             @relation(fields: [feeId], references: [feeId])
   Catches            Catch[]
 }
@@ -116,8 +116,7 @@ model FisheryAuthority {
   streetNumber         Int
   floor                Int?
   door                 Int?
-
-  LogBook LogBook[]
+  LogBook LogBook[] 
   city    City      @relation(fields: [cityId], references: [cityId])
 }
 
@@ -155,7 +154,7 @@ model Catch {
   temperature     Int?
   temperatureUnit String?
   isStored        Boolean   @default(false)
-  logBook         LogBook   @relation(fields: [logBookId], references: [serialNumber])
+  logBook         LogBook   @relation(fields: [logBookId], references: [serialNumber], onDelete: Cascade)
   waterArea       WaterArea @relation(fields: [waterAreaId], references: [waterAreaId])
   fish            Fish      @relation(fields: [fishId], references: [fishId])
 }
@@ -180,7 +179,7 @@ model Participant {
   ranking      Int
 
   user       User       @relation(fields: [userId], references: [id])
-  tournament Tournament @relation(fields: [tournamentId], references: [tournamentId])
+  tournament Tournament @relation(fields: [tournamentId], references: [tournamentId], onDelete: Cascade)
 
   @@unique([tournamentId, userId])
 }

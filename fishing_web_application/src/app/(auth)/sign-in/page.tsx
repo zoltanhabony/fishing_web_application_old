@@ -9,7 +9,7 @@ const SignInPage = () => {
       <div className="relative w-full h-[70px] flex items-center justify-between p-3">
         <div className=" relative flex items-center justify-center">
           <img src="/32.png" alt="" className="" />
-          <p className="text-lg pl-3">Fishify</p>
+          <Link className="text-md pl-3 cursor-pointer" href="/">Fishify</Link>
         </div>
         <Link
           href="/sign-up"
@@ -18,7 +18,7 @@ const SignInPage = () => {
             "absolute right-4 top-4 md:right-8 md:top-8"
           )}
         >
-          Sign Up
+          Regisztráció
         </Link>
       </div>
       <div className="absolute top-[70px] bottom-0 left-0 w-full  flex justify-center items-center">

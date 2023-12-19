@@ -297,6 +297,7 @@ const LogBookForm = () => {
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button
+                      id="birthDate"
                       variant={"outline"}
                       className={cn(
                         "w-[240px] justify-start text-left font-normal",

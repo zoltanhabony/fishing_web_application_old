@@ -37,7 +37,6 @@ export async function POST(req: any, res: any) {
         if (session.user.role === "ADMIN") {
 
             const body = await req.json();
-            console.log(body);
             const data = {...body, birthDate: new Date(body.birthDate), expiresDate: new Date(body.expiresDate)};
             const { userName, userFirstName, userLastName, birthDate, fisheryAuthority, expiresDate, baseFee, eszh, currency} = logBookFormSchema.parse(data);
 
@@ -171,5 +170,4 @@ export async function POST(req: any, res: any) {
             { status: 401 }
         )
     }
-
 }

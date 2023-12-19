@@ -15,24 +15,24 @@ import { useForm } from "react-hook-form";
 import GoogleSingInButton from "../GoogleSignInButton";
 import { useRouter } from "next/navigation";
 
-const formSchema = z
+const registrationFormSchema = z
   .object({
     userName: z.string().min(3, {
-      message: "Username must be at least 3 characters.",
+      message: "A felhasználónévnek minimum 3 karaktert kell tartalmaznia!",
     }),
-    email: z.string().min(1, { message: "Email is required" }).email({
-      message: "Invalid email",
+    email: z.string().min(1, { message: "Az email címet kötelező megadni!" }).email({
+      message: "Érvénytelen e-mail cím",
     }),
     password: z
       .string()
-      .regex(new RegExp(".*[A-Z].*"), "One uppercase character")
-      .regex(new RegExp(".*[a-z].*"), "One lowercase character")
-      .regex(new RegExp(".*\\d.*"), "One number")
+      .regex(new RegExp(".*[A-Z].*"), "A jelszónak tartalmaznia kell egy nagybetűt!")
+      .regex(new RegExp(".*[a-z].*"), "A jelszónak tartalmaznia kell egy kisbetűt!")
+      .regex(new RegExp(".*\\d.*"), "A jelszónak tartalmaznia kell egy számot!")
       .regex(
         new RegExp(".*[`~<>?,./!@#$%^&*()\\-_+=\"'|{}\\[\\];:\\\\].*"),
-        "One special character"
+        "A jelszónak tartalmaznia kell egy speciális karaktert! pl:!@#$"
       )
-      .min(8, "Must be at least 8 characters in length"),
+      .min(7, "A jelszónak minimum 8 karakter hosszúnak kell lennie!"),
 
     confirmPassword: z
       .string()
@@ -53,8 +53,8 @@ const formSchema = z
 const SignUpForm = () => {
   const route = useRouter();
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof registrationFormSchema>>({
+    resolver: zodResolver(registrationFormSchema),
     defaultValues: {
       userName: "",
       email: "",
@@ -63,7 +63,7 @@ const SignUpForm = () => {
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof registrationFormSchema>) => {
     const response = await fetch("/api/user", {
       method: "POST",
       headers: {
@@ -93,7 +93,7 @@ const SignUpForm = () => {
             <FormItem className="pr-5">
               <FormLabel>Felhasználónév</FormLabel>
               <FormControl>
-                <Input placeholder="jhondoe" {...field} />
+                <Input placeholder="horgaszjanos" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -106,7 +106,7 @@ const SignUpForm = () => {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="jhondoe@gmail.com" {...field} />
+                <Input placeholder="horgaszjanos@gmail.com" {...field} />
               </FormControl>
 
               <FormMessage />
@@ -120,7 +120,7 @@ const SignUpForm = () => {
             <FormItem className="pr-5">
               <FormLabel>Jelszó</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="s3cr€t" {...field} />
+                <Input type="password" placeholder="********" {...field} />
               </FormControl>
 
               <FormMessage />
@@ -135,7 +135,7 @@ const SignUpForm = () => {
             <FormItem>
               <FormLabel>Jelszó megerősítése</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="s3cr€t" {...field} />
+                <Input type="password" placeholder="********" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

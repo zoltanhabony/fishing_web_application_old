@@ -259,7 +259,7 @@ const AddCatchForm = () => {
                           ? waterAreas.find(
                               (area) => area.waterAreaId === field.value
                             )?.waterAreaName
-                          : "Select language"}
+                          : "Vízterület kiválasztása"}
                           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                       </Button>
                     </FormControl>
@@ -354,7 +354,7 @@ const AddCatchForm = () => {
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="kg" />
+                        <SelectValue  />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent className="max-h-[200px]">
@@ -421,7 +421,7 @@ const AddCatchForm = () => {
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="cm" />
+                        <SelectValue className="placeholder-red-300"  />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent className="max-h-[200px]">
@@ -464,7 +464,7 @@ const AddCatchForm = () => {
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="celsius" />
+                        <SelectValue />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent className="max-h-[200px]">

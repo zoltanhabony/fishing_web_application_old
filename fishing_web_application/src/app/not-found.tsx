@@ -1,8 +1,8 @@
 export default function NotFound() {
     return (
       <div className="global">
-        <h2>Not Found</h2>
-        <p>Could not find requested resource</p>
+        <h2>Nincs találat</h2>
+        <p>A kért erőforrás nem található</p>
       </div>
     );
   }

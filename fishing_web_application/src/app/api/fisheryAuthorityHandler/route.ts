@@ -3,6 +3,7 @@ import { options } from "../auth/[...nextauth]/options";
 import { getServerSession } from "next-auth/next"
 import { z } from "zod";
 import db from "@/lib/db";
+import { updateAuthorityFormSchema } from "@/data/schema";
 
 const authorityFormSchema = z.object({
     fisheryAuthorityName: z.string().min(5, "Az egyesület nevének minimun 5 karakter kell tartalmazzon"),
@@ -153,3 +154,122 @@ export async function GET(request: NextRequest) {
         )
     }
   }
+
+
+  export async function PUT(req: any, res: any) {
+    const session = await getServerSession(options)
+    if (session) {
+        if (session.user.role === "ADMIN") {
+
+            const body = await req.json();
+            console.log(body);
+            const { fisheryAuthorityId, fisheryAuthorityName, taxId, streetName, streetNumber, floor, door, cityName } = updateAuthorityFormSchema.parse(body);
+
+            const existingAuthority = await db.fisheryAuthority.findFirst({
+                where: { fisheryAuthorityId: fisheryAuthorityId },
+            });
+
+            console.log(existingAuthority)
+
+
+            const getCityId = await db.city.findFirst({
+                where: {
+                    cityId: cityName,
+                },
+            })
+
+
+            if (getCityId && (cityName !== "" || cityName !== null)) {
+                return NextResponse.json(
+                    { authority: null, message: "A módosítás sikertelen: A megadott irányítószámhoz nem tartozik város" },
+                    { status: 400 }
+                )
+            }
+
+            const existingAddress = await db.fisheryAuthority.findFirst({
+                where: {
+                    streetName: streetName, streetNumber: Number(streetNumber), floor: Number(floor) ? Number(floor) : null, door: Number(door), city: {
+                        cityName: cityName
+                    }
+                },
+            });
+
+            if (existingAddress) {
+                return NextResponse.json(
+                    { authority: null, message: "A módosítás sikertelen: Már létezik ezzel a címmel bejelentett egyesület!" },
+                    { status: 409 }
+                )
+            }
+
+            await db.fisheryAuthority.update({
+                where: {
+                    fisheryAuthorityId: fisheryAuthorityId,
+                  },
+                data: {
+                    fisheryAuthorityName: fisheryAuthorityName === "" || fisheryAuthorityName === null ? existingAuthority!.fisheryAuthorityName : fisheryAuthorityName,
+                    taxId: taxId === "" || taxId === null ? existingAuthority!.taxId : taxId, 
+                    streetName: streetName === "" || streetName === null ? existingAuthority!.streetName : streetName,
+                    streetNumber: streetNumber === "" || streetNumber === null ? existingAuthority!.streetNumber : Number(streetNumber),
+                    floor: floor === undefined  || streetNumber === null ? existingAuthority!.floor : Number(floor),
+                    door: door === undefined || door === null ? existingAuthority!.door : Number(door),
+                    cityId: cityName === "" || cityName === null ? existingAuthority!.cityId : cityName
+                }
+            })
+
+            return NextResponse.json(
+                { message: "Az egyesület módosítása sikerült!" },
+                { status: 201 }
+            );
+
+
+        } else {
+            return NextResponse.json(
+                { authority: null, message: "A módosítás sikertelen: Nincs megfelelő jogosultság!" },
+                { status: 403 }
+            )
+        }
+
+
+    } else {
+        return NextResponse.json(
+            { authority: null, message: "A létrehozás sikertelen: Nincs érvényes munkamenet!" },
+            { status: 401 }
+        )
+    }
+
+}
+
+export async function DELETE(request: NextRequest) {
+    const session = await getServerSession(options)
+    if (session) {
+        if (session.user.role === "ADMIN") {
+            const fisheryAuthorityId = request.nextUrl.searchParams.get("fisheryAuthorityId")
+
+            
+            await db.fisheryAuthority.delete(
+                { where: {
+                    fisheryAuthorityId: fisheryAuthorityId ? fisheryAuthorityId : ""
+                }}
+            )
+
+            return NextResponse.json(
+                { message: "A törlés sikeresen megtörtént" },
+                { status: 200 }
+            )
+
+
+        } else {
+            return NextResponse.json(
+                { message: "Nincs jogosultsága a fogás törléséhez" },
+                { status: 403 }
+            )
+        }
+
+
+    } else {
+        return NextResponse.json(
+            { authority: null, message: "A létrehozás sikertelen: Nincs érvényes munkamenet!" },
+            { status: 401 }
+        )
+    }
+}

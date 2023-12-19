@@ -157,18 +157,18 @@ const seed = async () => {
     })
 
     
-    console.log(newWaterArea)
     await db.waterArea.createMany({
         data: newWaterArea
     })
 
-    console.log(newPostalCode)
     await db.city.createMany({
         data: newPostalCode
     })
+    
     await db.fish.createMany({
         data: newFish
     })
+    
     
     await db.currency.createMany({
         data: newCurrency
@@ -178,6 +178,7 @@ const seed = async () => {
     await db.unit.createMany({
         data: newUnit
     })
+    
 }
 
 seed().catch((e) => {

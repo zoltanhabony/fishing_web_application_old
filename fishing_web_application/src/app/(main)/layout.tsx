@@ -1,8 +1,5 @@
 "use client"
-
 import { FC, ReactNode, useState } from "react";
-import { getServerSession } from "next-auth/next";
-import { options } from "../api/auth/[...nextauth]/options";
 import User from "@/components/User";
 import MenuLink from "@/components/menu/menu-link";
 import { Button } from "@/components/ui/button";
@@ -16,8 +13,6 @@ const MainFrame: FC<MainFrameProps> = ({ children }) => {
   const mobileMenuHandler = () =>{
     setMenuIsOpen(!menuIsOpen)
   }
-  //close: absolute hidden p-3 md:block md:visible md:relative sm:min-w-[70px] md:min-w-[70px] lg:min-w-[300px] shadow-[rgba(0,0,0.1,0.1)_3px_2px_30px_3px]
-  //open: absolute w-full h-full flex justify-center items-center z-50 bg-white p-3 md:block md:visible md:relative sm:min-w-[70px] md:min-w-[70px] lg:min-w-[300px] shadow-[rgba(0,0,0.1,0.1)_3px_2px_30px_3px]
   return (
     <div className="h-screen w-full flex flex-col md:flex-row">
       <div className={(menuIsOpen ? 'flex' : 'hidden')+" absolute w-full h-full justify-center items-center z-10 bg-white shadow-[rgba(0,0,0.1,0.1)_3px_2px_30px_3px] "+ " md:relative md:block md:max-w-[70px] p-3" + " lg:max-w-[300px] "}>
@@ -30,7 +25,7 @@ const MainFrame: FC<MainFrameProps> = ({ children }) => {
           </Button>
           <User/>
         </div>
-        <div className=" h-full overflow-hidden">{children}</div>
+        <div className=" h-full overflow-hidden ">{children}</div>
       </div>
     </div>
   );

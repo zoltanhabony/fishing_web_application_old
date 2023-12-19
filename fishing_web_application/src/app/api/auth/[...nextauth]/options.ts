@@ -1,10 +1,8 @@
 import type { NextAuthOptions } from "next-auth";
-import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import db from "@/lib/db";
 import { compare } from "bcrypt";
-import { getJWTAccessToken } from "@/lib/jwt";
 
 export const options: NextAuthOptions = {
   providers: [
@@ -14,12 +12,11 @@ export const options: NextAuthOptions = {
         email: {
           label: "email",
           type: "email",
-          placeholder: "jhondoe@gmail.com",
         },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        if(!credentials?.email || !credentials?.password){
+        if (!credentials?.email || !credentials?.password) {
           return null
         }
         const existingUser = await db.user.findUnique({
@@ -28,32 +25,25 @@ export const options: NextAuthOptions = {
           }
         })
 
-        if(!existingUser){
+        if (!existingUser) {
           return null
         }
 
         const passwordIsMatch = await compare(credentials.password, existingUser.hashedPassword)
 
-        if(!passwordIsMatch){
+        if (!passwordIsMatch) {
           return null
         }
 
-        const {hashedPassword , ...existingUserWithoutPass} = existingUser;
-        const accessToken = getJWTAccessToken(existingUserWithoutPass)
-
-        return{
-          id:`${existingUser.id}`,
+        const { hashedPassword, ...existingUserWithoutPass } = existingUser;
+        
+        return {
+          id: `${existingUser.id}`,
           userName: existingUser.userName,
           email: existingUser.email,
-          role: existingUser.role,
-          accessToken: accessToken,
+          role: existingUser.role
         }
       },
-    }),
-
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID as string,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
   ],
   pages: {
@@ -65,12 +55,12 @@ export const options: NextAuthOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
 
-  callbacks:{
-    async jwt({token, user}){
-      return{...token, ...user}
+  callbacks: {
+    async jwt({ token, user }) {
+      return { ...token, ...user }
     },
 
-    async session({session, token}){
+    async session({ session, token }) {
       session.user = token as any
       return session
     }

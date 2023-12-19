@@ -7,32 +7,27 @@ export async function GET(request: NextRequest) {
     const session = await getServerSession(options)
     if (session) {
         if (session.user.role === "USER" || session.user.role === "ADMIN") {
-
             const user = await db.user.findFirst({
                 where: {
                     userName: session.user.userName
                 }
             })
-
             const accessRight = await db.accessRight.findFirst({
                 where: {
                     accessRightId: user?.accessRightId
                 }
             })
-
             const haveLogBook = await db.logBook.findFirst({
                 where: {
                     userId: user?.id
                 }
             })
-
             const fishingDate = await db.isFishing.findFirst({
                 where: {
                     userId: user?.id,
                     date: new (Date)
                 }
             })
-
             return NextResponse.json(
                 {
                     haveAccessToFishing: Boolean(accessRight?.haveAccessToFishing),
@@ -41,19 +36,15 @@ export async function GET(request: NextRequest) {
                 },
                 { status: 200 }
             )
-
-
         } else {
             return NextResponse.json(
-                { authority: null, message: "Nincs jogosultsága az adatok megtekintéséhez" },
+                { authority: null, message: "Nincs jogosultsága az adatok eléréséhez" },
                 { status: 403 }
             )
         }
-
-
     } else {
         return NextResponse.json(
-            { authority: null, message: "A létrehozás sikertelen: Nincs érvényes munkamenet!" },
+            { authority: null, message: "Nincs érvényes munkamenet!" },
             { status: 401 }
         )
     }

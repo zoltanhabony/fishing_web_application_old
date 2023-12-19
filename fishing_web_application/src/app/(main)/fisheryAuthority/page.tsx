@@ -1,4 +1,5 @@
 import { options } from "@/app/api/auth/[...nextauth]/options";
+import AllAuthorityTable from "@/components/dataTables/authorityTable/AuthorityTable";
 import CreateFisheryAuthority from "@/components/fisheryAuthority/createFisheryAuthority";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getServerSession } from "next-auth";
@@ -13,15 +14,12 @@ const FisheryAuthority = async () => {
             <TabsTrigger value="createAuthority">Egyesület létrehozása</TabsTrigger>
             <TabsTrigger value="allAuthority">Egyesületek listája</TabsTrigger>
           </TabsList>
-          <TabsContent value="createAuthority" className="h-full w-full">
+          <TabsContent value="createAuthority" className="relative h-full w-full overflow-scroll">
              <CreateFisheryAuthority/>
           </TabsContent>
-          <TabsContent value="allAuthority" className="">
-            <div className="text-md flex flex-col justify-center items-center text-center p-10">
-              <p>Egyesületek listája</p>
-              <p className="text-sm mt-3 text-muted-foreground">
-                A felület elkészítése folyamatban...
-              </p>
+          <TabsContent value="allAuthority" className="relative h-full w-full overflow-scroll">
+            <div className=" grid text-md  flex-col justify-center items-center text-center p-10">
+            <AllAuthorityTable/>
             </div>
           </TabsContent>
         </Tabs>

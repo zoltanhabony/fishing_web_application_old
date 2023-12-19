@@ -9,30 +9,26 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Button } from "../ui/button";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "../ui/input";
 import { useForm } from "react-hook-form";
-import GoogleSingInButton from "../GoogleSignInButton";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Icons } from "../ui/icon";
-import { error } from "console";
-
 const formSchema = z.object({
-  email: z.string().min(1, { message: "Email is required" }).email({
+  email: z.string().min(1, { message: "Az email címet kötelező megadni!" }).email({
     message: "Invalid email",
   }),
 
   password: z
     .string()
-    .regex(new RegExp(".*[a-z].*"), "One lowercase character")
-    .regex(new RegExp(".*\\d.*"), "One number")
+    .regex(new RegExp(".*[a-z].*"), "A jelszónak tartalmaznia kell egy kisbetűt!")
+    .regex(new RegExp(".*\\d.*"), "A jelszónak tartalmaznia kell egy számot!")
     .regex(
       new RegExp(".*[`~<>?,./!@#$%^&*()\\-_+=\"'|{}\\[\\];:\\\\].*"),
-      "One special character"
+      "A jelszónak tartalmaznia kell egy speciális karaktert! pl:!@#$"
     )
-    .min(8, "Must be at least 8 characters in length"),
+    .min(7, "A jelszónak minimum 8 karakter hosszúnak kell lennie!"),
 });
 
 const SignInForm = () => {
@@ -75,7 +71,7 @@ const SignInForm = () => {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input disabled={isLoading} placeholder="jhondoe@gmail.com" {...field} />
+                <Input disabled={isLoading} placeholder="horgaszjanos@gmail.com" {...field} />
               </FormControl>
 
               <FormMessage />
@@ -90,7 +86,7 @@ const SignInForm = () => {
             <FormItem>
               <FormLabel>Jelszó</FormLabel>
               <FormControl>
-                <Input disabled={isLoading} type="password" placeholder="s3cr€t" {...field} />
+                <Input disabled={isLoading} type="password" placeholder="*********" {...field} />
               </FormControl>
 
               <FormMessage />

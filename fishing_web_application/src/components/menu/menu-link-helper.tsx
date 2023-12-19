@@ -6,6 +6,7 @@ import {
   MapPinned,
   Newspaper,
   Trophy,
+  Users,
 } from "lucide-react";
 import { ReactNode } from "react";
 
@@ -58,6 +59,85 @@ const MENU_ITEMS: {
     href: "/fisheryAuthority",
     role: "ADMIN",
     icon: <Home className="m-2" />,
+    description:
+      "A modal dialog that interrupts the user with important content and expects a response.",
+  },
+
+  {
+    title: "Bejegyzések",
+    href: "/post",
+    role: "USER",
+    icon: < Newspaper className="m-2" />,
+    description:
+      "A modal dialog that interrupts the user with important content and expects a response.",
+  },
+
+  {
+    title: "Statisztika",
+    href: "/statistics",
+    role: "USER",
+    icon: < BarChartBig className="m-2" />,
+    description:
+      "A modal dialog that interrupts the user with important content and expects a response.",
+  },
+
+  {
+    title: "Statisztika",
+    href: "/statistics",
+    role: "ADMIN",
+    icon: <BarChartBig className="m-2" />,
+    description:
+      "A modal dialog that interrupts the user with important content and expects a response.",
+  },
+
+  {
+    title: "Bejegyzések",
+    href: "/post",
+    role: "ADMIN",
+    icon: <Newspaper className="m-2" />,
+    description:
+      "A modal dialog that interrupts the user with important content and expects a response.",
+  },
+  {
+    title: "Versenyek",
+    href: "/tournament",
+    role: "USER",
+    icon: < Trophy className="m-2" />,
+    description:
+      "A modal dialog that interrupts the user with important content and expects a response.",
+  },
+
+  {
+    title: "Versenyek",
+    href: "/tournament",
+    role: "ADMIN",
+    icon: <Trophy className="m-2" />,
+    description:
+      "A modal dialog that interrupts the user with important content and expects a response.",
+  },
+  {
+    title: "Térkép",
+    href: "/map",
+    role: "USER",
+    icon: < MapPinned className="m-2" />,
+    description:
+      "A modal dialog that interrupts the user with important content and expects a response.",
+  },
+
+  {
+    title: "Térkép",
+    href: "/map",
+    role: "ADMIN",
+    icon: <MapPinned className="m-2" />,
+    description:
+      "A modal dialog that interrupts the user with important content and expects a response.",
+  },
+
+  {
+    title: "Felhasználók",
+    href: "/users",
+    role: "ADMIN",
+    icon: <Users className="m-2" />,
     description:
       "A modal dialog that interrupts the user with important content and expects a response.",
   },

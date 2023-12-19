@@ -23,6 +23,7 @@ const MenuLink: FC<MenuProps> = ({mobileMenuHandler}) => {
   const onClickHandler = () => {
     mobileMenuHandler()
   }
+  
   return (
     <NavigationMenu className="text-sm block max-w-full">
       <NavigationMenuList className="block space-x-0 min-w-full ">

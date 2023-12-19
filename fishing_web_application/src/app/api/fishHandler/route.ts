@@ -213,17 +213,22 @@ export async function POST(req: any, res: any) {
                     waterAreaId: getWaterArea.waterAreaId,
                     fishId: getFishTypeId.fishId,
                     weight: Number(weight),
-                    weightUnit: getMassUnit?.unitTypeId,
+                    weightUnit: getMassUnit?.unitAcronyms,
                     length: Number(length),
-                    lengthUnit: getLengthUnit?.unitTypeId,
+                    lengthUnit: getLengthUnit?.unitAcronyms,
                     isInjured: isInjured,
                     method: method,
                     fishingBait: bait,
                     temperature: Number(temperature),
-                    temperatureUnit: getTemperatureUnit?.unitTypeId,
+                    temperatureUnit: getTemperatureUnit?.unitAcronyms,
                     isStored: isStored,
                 }
             })
+
+            return NextResponse.json(
+                { message: "A létrehozás sikeresen megtörtént!" },
+                { status: 200 }
+            )
 
 
 

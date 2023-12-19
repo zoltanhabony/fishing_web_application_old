@@ -25,6 +25,7 @@ const userSchema = z.object({
   .min(8, "Must be at least 8 characters in length"),
   })
 
+
 export async function POST(req: Request) {
   try {
     const body = await req.json();
@@ -84,7 +85,7 @@ export async function POST(req: Request) {
     console.log(error)
     return NextResponse.json(
       { message: error },
-      { status: 500 }
+      { status: 400 }
     );
   }
 }
